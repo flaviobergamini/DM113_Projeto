@@ -7,7 +7,7 @@ public class User : BaseEntity
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
 
-    public long UserId { get; set; }
-    public User UserEntity { get; set; } = null!;
+    //public long UserId { get; set; }
+    //public User UserEntity { get; set; } = null!;
 
 }

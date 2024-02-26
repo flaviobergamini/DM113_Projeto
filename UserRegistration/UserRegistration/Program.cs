@@ -1,7 +1,11 @@
 using Core;
 using Infrastructure;
+using Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<DatabaseSettings>(
+    builder.Configuration.GetSection("UserRegistrationDatabase"));
 
 // Add services to the container.
 
