@@ -9,6 +9,6 @@ public static class CoreInjector
     public static void RegisterServices(this IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IAddressService, AddressService>();
+        services.AddScoped<ITokenService, TokenService>();
     }
 }

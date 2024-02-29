@@ -10,21 +10,27 @@ namespace Core.Services;
 public class UserService : BaseService<User>, IUserService
 {
     private readonly IUserRepository _userRepository;
-    //private readonly ITokenService _tokenService;
+    private readonly ITokenService _tokenService;
 
     public UserService(
-        IUserRepository userRepository)
-        //ITokenService tokenService)
+        IUserRepository userRepository,
+        ITokenService tokenService)
     {
         _userRepository = userRepository;
-        //_tokenService = tokenService;
+        _tokenService = tokenService;
     }
 
     public async Task<Result<User>> CreateUserAsync(User user, CancellationToken cancellationToken)
     {
         try
         {
+            var verifyUser = await _userRepository.GetByEmailAsync(user.Email, cancellationToken);
+
+            if (verifyUser != null)
+                return Result.Invalid(); 
+
             user.Password = PasswordHasher.Hash(user.Password);
+            user.RefreshToken = _tokenService.GenerateRefreshToken();
 
             var createdUser = await _userRepository.CreateUserAsync(user, cancellationToken);
 
