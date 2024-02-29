@@ -10,12 +10,11 @@ namespace Core.Services;
 
 public class TokenService : ITokenService
 {
-    //private DecryptedTokenService decryptedTokenService = new DecryptedTokenService();
     public string GenerateToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-
-        var key = Encoding.ASCII.GetBytes("MDkxNTdkNjMtZGQxYy00ZGQzLTgwNTctZDJhYjZlZGZhMzIx");
+        
+        var key = Encoding.ASCII.GetBytes(JwtKeyConfiguration.JwtKey);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
